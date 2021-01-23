@@ -9,3 +9,5 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 COMMAND_PREFIX = os.getenv('COMMAND_PREFIX')
 with open('files/parrots.json', 'r') as fp:
     PARROTS = json.load(fp)
+with open('files/memes.json', 'r') as fp:
+    MEMES = json.load(fp)

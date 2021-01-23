@@ -7,6 +7,7 @@ from modules.commands.cat import Cat
 from modules.commands.clear import Clear
 from modules.commands.dog import Dog
 from modules.commands.joke import Joke
+from modules.commands.memes import Memes
 from modules.commands.parrot import Parrot
 
 
@@ -24,6 +25,7 @@ class UwuBot:
             message_text = message.content.lower().split(' ')
             if len(message_text) > 1 and message_text[0].startswith(COMMAND_PREFIX):
                 command = message_text[1]
+                meme_text = ' '.join(message_text[2:])
                 channel = message.channel
                 author = message.author
                 if command == 'parrot':
@@ -47,6 +49,8 @@ class UwuBot:
                     await channel.send('pong')
                 elif command == 'clearyesimsure':
                     await Clear(channel=channel, author=author).apply()
+                elif command == 'meme':
+                    await Memes(channel=channel, author=author, message=meme_text).apply()
 
     def start(self):
         print("Starting modules!")
