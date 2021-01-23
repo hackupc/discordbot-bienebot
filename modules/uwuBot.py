@@ -1,8 +1,5 @@
-from asyncio import sleep
-
 import discord
 from discord.ext import commands
-from discord.ext.commands import cooldown
 
 from get_enviroment import TOKEN, COMMAND_PREFIX
 from modules.commands.biene import Biene
@@ -13,11 +10,7 @@ from modules.commands.joke import Joke
 from modules.commands.parrot import Parrot
 
 
-class BitsBot:
-
-    prefix = ""
-    client = None
-    token = ""
+class UwuBot:
 
     def __init__(self) -> None:
         intents = discord.Intents.default()
@@ -46,7 +39,10 @@ class BitsBot:
                 elif command == 'parjoke':
                     await Joke(channel=channel, author=author, option=2).apply()
                 elif command == 'biene':
-                    await Biene(channel=channel, author=author).apply()
+                    if len(message_text) > 2:
+                        await Biene(channel=channel, author=author, message=message_text[2]).apply()
+                    else:
+                        await Biene(channel=channel, author=author).apply()
                 elif command == 'ping':
                     await channel.send('pong')
                 elif command == 'clearyesimsure':

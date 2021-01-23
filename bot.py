@@ -1,5 +1,5 @@
-from modules.bitsBot import BitsBot
+from modules.uwuBot import UwuBot
 
 if __name__ == "__main__":
-    bot = BitsBot()
+    bot = UwuBot()
     bot.start()
