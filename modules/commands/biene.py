@@ -9,6 +9,7 @@ from modules.commands.base import BaseCommand
 class Biene(BaseCommand):
 
     async def apply(self):
-        path = random.choice(os.listdir("files/bienes/"))
-        file = File(path, filename="Biene")
+        path = 'files/bienes/'
+        name = random.choice(os.listdir(path))
+        file = File(path + name, filename="Biene")
         await self.channel.send('Biene!', file=file)
