@@ -19,9 +19,11 @@ class Biene(BaseCommand):
         if self.message is None:
             name = random.choice(list)
             file = File(path + name, filename="Biene.png")
+            await self.channel.send('Biene!', file=file)
         else:
-            if self.message.upper() in list:
-                file = File('%s%s.png' % (path, self.message.upper()), filename="Biene.png")
+            self.message = self.message.upper() + '.png'
+            if self.message in list:
+                file = File(path + self.message, filename="Biene.png")
                 await self.channel.send('Biene!', file=file)
             else:
                 await self.channel.send('Not found! Try again bitch')
