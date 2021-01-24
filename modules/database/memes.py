@@ -21,7 +21,9 @@ class MemesList:
         return meme['url']
 
     def get_info_all(self):
-        return self.dict.values()
+        result = list(self.dict.values())
+        result.sort(key=lambda x: x['name'])
+        return result
 
     def get_info(self, key):
         return self.dict[key]

@@ -32,7 +32,7 @@ class Memes(BaseCommand):
     async def help(self):
         list = MemesList().get_info_all()
         list_message = []
-        message = "**USE**: uwu meme [command_meme] upper text|lower text"
+        message = "**USE: uwu meme [meme_code] help**\n"
         for item in list:
             message += "**%s**: %s\n" % (item['name'], item['key'])
             if len(message) > 1900:
@@ -51,16 +51,19 @@ class Memes(BaseCommand):
     async def meme(self):
         embed = Embed()
         url = MemesList().get_url_meme(self.name)
-        if len(self.message) > 1:
-            embed.set_image(url="%s/%s/%s.png" % (url, self.message[0], self.message[1]))
-        else:
-            embed.set_image(url="%s/%s.png" % (url, self.message[0]))
+        url_format = '/'.join(self.message)
+        embed.set_image(url="%s/%s.png?width=500" % (url, url_format))
         await self.channel.send(embed=embed)
 
     async def meme_help(self):
         embed = Embed()
         meme = MemesList().get_info(self.name)
-        embed.set_image(url=meme['example'])
         embed.title = meme['name']
-        embed.description = '**Use**: uwu meme %s upper text|lower text' % meme['key']
+        format = ""
+        for i in range(0, int(meme['lines'])):
+            format += "text%d|" % i
+        format = format[:-1]
+        url_format = format.replace('|', '/')
+        embed.description = '**Use**: uwu meme %s %s' % (meme['key'], format)
+        embed.set_image(url='%s/%s.png?width=500' % (meme['url'], url_format))
         await self.channel.send(embed=embed)

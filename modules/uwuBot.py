@@ -21,6 +21,10 @@ class UwuBot:
         self.client.remove_command('help')
 
         @self.client.event
+        async def on_ready():
+            await self.client.change_presence(activity=discord.Game(name="CUMBACK server"))
+
+        @self.client.event
         async def on_message(message):
             message_text = message.content.lower().split(' ')
             if len(message_text) > 1 and message_text[0].startswith(COMMAND_PREFIX):
