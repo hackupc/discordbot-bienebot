@@ -6,6 +6,7 @@ from modules.commands.biene import Biene
 from modules.commands.cat import Cat
 from modules.commands.clear import Clear
 from modules.commands.dog import Dog
+from modules.commands.help import Help
 from modules.commands.joke import Joke
 from modules.commands.memes import Memes
 from modules.commands.parrot import Parrot
@@ -56,6 +57,8 @@ class UwuBot:
                     await Clear(channel=channel, author=author).apply()
                 elif command == 'meme':
                     await Memes(channel=channel, author=author, message=meme_text).apply()
+                elif command == 'help':
+                    await Help(channel=channel, author=author).apply()
 
     def start(self):
         print("Starting modules!")
