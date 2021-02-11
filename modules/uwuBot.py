@@ -23,7 +23,7 @@ class UwuBot:
 
         @self.client.event
         async def on_ready():
-            await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,
+            await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,
                                                                         name="Bienes"))
 
         @self.client.event
