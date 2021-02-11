@@ -6,10 +6,15 @@ chardet==3.0.4
 discord==1.0.1
 discord.py==1.5.1
 dropbox==11.0.0
+flake8==3.8.4
 idna==2.10
+importlib-metadata==3.4.0
+mccabe==0.6.1
 multidict==4.7.6
 pipenv==2018.11.26
 ply==3.11
+pycodestyle==2.6.0
+pyflakes==2.2.0
 python-dotenv==0.15.0
 requests==2.25.1
 six==1.15.0
@@ -19,3 +24,4 @@ urllib3==1.26.2
 virtualenv==16.7.7
 virtualenv-clone==0.5.3
 yarl==1.5.1
+zipp==3.4.0
