@@ -1,8 +1,6 @@
 import random
 
 from discord import Embed
-from discord.ext.commands import Context
-from discord.utils import get
 
 from modules.commands.base import BaseCommand
 
