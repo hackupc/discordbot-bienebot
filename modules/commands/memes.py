@@ -45,7 +45,7 @@ class Memes(BaseCommand):
                 first = False
                 embed.title = 'List of meme commands'
             embed.description = message
-            await self.channel.send(embed=embed)
+            await self.user.send(embed=embed)
             await sleep(1)
 
     async def meme(self):
