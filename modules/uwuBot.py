@@ -10,6 +10,7 @@ from modules.commands.help import Help
 from modules.commands.joke import Joke
 from modules.commands.memes import Memes
 from modules.commands.parrot import Parrot
+from modules.models.user import User
 
 
 class UwuBot:
@@ -25,6 +26,11 @@ class UwuBot:
         async def on_ready():
             await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,
                                                                         name="Bienes"))
+
+        @self.client.event
+        async def on_member_join(member):
+            user = User(member.display_name, member.id, member.roles)
+            user.save()
 
         @self.client.event
         async def on_message(message):
