@@ -11,6 +11,7 @@ from modules.commands.joke import Joke
 from modules.commands.memes import Memes
 from modules.commands.parrot import Parrot
 from modules.models.user import User
+from modules.commands.utils import get_bits_server, create_team
 
 
 class UwuBot:
@@ -65,6 +66,9 @@ class UwuBot:
                     await Memes(channel=channel, author=author, message=meme_text).apply()
                 elif command == 'help':
                     await Help(channel=channel, author=author).apply()
+                elif command == 'team':
+                    guild = get_bits_server(self.client)
+                    await create_team(guild, message_text[2])
 
     def start(self):
         print("Starting modules!")
