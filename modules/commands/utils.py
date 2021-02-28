@@ -73,4 +73,3 @@ async def change_team_name(guild, author, new_name):
 def get_team_name(userid):
     response = requests.get("%s%s/" % (API_URL, str(userid)), headers=headers)
     return response.json()['team_name']
-
