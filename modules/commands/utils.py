@@ -1,6 +1,7 @@
 import discord
 from discord.utils import get
-from get_enviroment import SERVER_NAME
+from get_enviroment import SERVER_NAME, API_URL, headers
+import requests
 
 
 def get_bits_server(client):
@@ -51,3 +52,25 @@ async def get_category(guild):
             return category
         else:
             return last
+
+
+async def change_team_name(guild, author, new_name):
+    old_name = get_team_name(author.id)
+    role = get(guild.roles, name=old_name)
+    text_channel = get(guild.text_channels, name=old_name)
+    voice_channel = get(guild.voice_channels, name=old_name)
+    await role.edit(name=new_name)
+    await text_channel.edit(name=new_name)
+    await voice_channel.edit(name=new_name)
+    data = {
+        "team_name": new_name,
+        "team_changed": True
+    }
+    response = requests.put("%s%s/" % (API_URL, str(author.id)), headers=headers, data=data)
+    print(response.json())
+
+
+def get_team_name(userid):
+    response = requests.get("%s%s/" % (API_URL, str(userid)), headers=headers)
+    return response.json()['team_name']
+
