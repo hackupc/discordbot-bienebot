@@ -10,7 +10,8 @@ def get_bits_server(client):
             return client.get_guild(guild.id)
 
 
-async def create_team(guild, team):
+# Create team rol and channels on discord
+async def create_channel_rol(guild, team):
     team_role = await guild.create_role(name=team)
     category = await get_category(guild)
 
@@ -54,22 +55,19 @@ async def get_category(guild):
             return last
 
 
-async def change_team_name(guild, author, new_name):
-    old_name = get_team_name(author.id)
-    role = get(guild.roles, name=old_name)
-    text_channel = get(guild.text_channels, name=old_name)
-    voice_channel = get(guild.voice_channels, name=old_name)
-    await role.edit(name=new_name)
-    await text_channel.edit(name=new_name)
-    await voice_channel.edit(name=new_name)
-    data = {
-        "team_name": new_name,
-        "team_changed": True
-    }
-    response = requests.put("%s%s/" % (API_URL, str(author.id)), headers=headers, data=data)
-    print(response.json())
+async def get_all_teams(guild):
+    response = requests.get(API_URL, headers=headers)
+    all_teams = [e.team_name for e in response if not ""]
+    unique_teams = list(set(all_teams))
+    for team in unique_teams:
+        await create_channel_rol(guild, team)
 
 
-def get_team_name(userid):
+def get_user_info(userid, param):
     response = requests.get("%s%s/" % (API_URL, str(userid)), headers=headers)
-    return response.json()['team_name']
+    if param == 'team_name':
+        return response.json()['team_name']
+    elif param == 'type':
+        return response.json()['type']
+    elif param == 'all':
+        return response.json()

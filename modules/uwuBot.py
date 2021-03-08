@@ -10,8 +10,11 @@ from modules.commands.help import Help
 from modules.commands.joke import Joke
 from modules.commands.memes import Memes
 from modules.commands.parrot import Parrot
+from modules.commands.changeTeamName import ChangeTeamName
+from modules.commands.addToTeam import AddToTeam
+from modules.commands.createTeam import CreateTeam
+from modules.commands.getUserInfo import GetUserInfo
 from modules.models.user import User
-from modules.commands.utils import get_bits_server, create_team, change_team_name
 
 
 class UwuBot:
@@ -30,8 +33,7 @@ class UwuBot:
 
         @self.client.event
         async def on_member_join(member):
-            user = User(member.display_name, member.id, member.roles)
-            user.save()
+            await User(member=member, client=self.client).save()
 
         @self.client.event
         async def on_message(message):
@@ -67,11 +69,16 @@ class UwuBot:
                 elif command == 'help':
                     await Help(channel=channel, author=author).apply()
                 elif command == 'createteam':
-                    guild = get_bits_server(self.client)
-                    await create_team(guild, message_text[2])
+                    await CreateTeam(channel=channel, author=author, message=message_text[2],
+                                     user=message.mentions[0], client=self.client).apply()
                 elif command == 'changeteamname':
-                    guild = get_bits_server(self.client)
-                    await change_team_name(guild, author, message_text[2])
+                    await ChangeTeamName(channel=channel, author=author, message=message_text[2], client=self.client)\
+                        .apply()
+                elif command == 'jointeam':
+                    await AddToTeam(channel=channel, author=author, message=message_text[2], users=message.mentions)\
+                        .apply()
+                elif command == 'userinfo':
+                    await GetUserInfo(channel=channel, author=author, user=message.mentions[0]).apply()
 
     def start(self):
         print("Starting modules!")
