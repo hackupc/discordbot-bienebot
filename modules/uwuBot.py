@@ -14,6 +14,8 @@ from modules.commands.changeTeamName import ChangeTeamName
 from modules.commands.addToTeam import AddToTeam
 from modules.commands.createTeam import CreateTeam
 from modules.commands.getUserInfo import GetUserInfo
+from modules.commands.getReactions import GetReactions
+from modules.commands.addSticker import AddSticker
 from modules.models.user import User
 
 
@@ -79,6 +81,11 @@ class UwuBot:
                         .apply()
                 elif command == 'userinfo':
                     await GetUserInfo(channel=channel, author=author, user=message.mentions[0]).apply()
+                elif command == 'reactions':
+                    await GetReactions(channel=channel, author=author, message=message).apply()
+                elif command == 'addsticker':
+                    await AddSticker(channel=channel, author=author, message=message_text[2],
+                                     user=message.mentions[0]).apply()
 
     def start(self):
         print("Starting modules!")

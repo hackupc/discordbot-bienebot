@@ -12,7 +12,10 @@ class GetUserInfo:
 
     async def apply(self):
         if get(self.author.roles, name='Organizer') is None:
-            await self.channel.send("You have no permissions to create a new team. Contact an organizer")
+            await self.channel.send("You have no permissions to see the required information")
             return
         info = get_user_info(self.user.id, 'all')
-        await self.author.send(json.dumps(info, indent=1))
+        if info is None:
+            await self.author.send("User %s not found in the database" % self.user.name)
+        else:
+            await self.author.send(json.dumps(info, indent=1))

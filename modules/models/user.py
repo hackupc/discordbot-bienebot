@@ -14,11 +14,12 @@ class User:
     async def save(self):
         data = {'checked_in': True}
         response = requests.put("%s%s/" % (API_URL, str(self.user.id)), headers=headers, data=data)
-
-        type_role = get(self.guild.roles, name=response.json()['type'])
-        team_role = get(self.guild.roles, name=response.json()['team_name'])
-        if type_role is not None:
-            await self.user.add_roles(type_role)
-        if team_role is not None:
-            await self.user.add_roles(team_role)
-        print(response.json())
+        if 'detail' in response.json():
+            print('User %s not found in database' % self.user.name)
+        else:
+            type_role = get(self.guild.roles, name=response.json()['type'])
+            team_role = get(self.guild.roles, name=response.json()['team_name'])
+            if type_role is not None:
+                await self.user.add_roles(type_role)
+            if team_role is not None:
+                await self.user.add_roles(team_role)

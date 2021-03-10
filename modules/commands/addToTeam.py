@@ -22,7 +22,10 @@ class AddToTeam:
             "checked_in": True
         }
         for user in self.users:
-            if get_user_info(user.id, 'team_name') == "":
+            user_info = get_user_info(user.id, 'team_name')
+            if user_info is None:
+                await self.channel.send("User ½s not found in the database")
+            elif user_info == "":
                 await user.add_roles(role)
                 requests.put("%s%s/" % (API_URL, str(user.id)), headers=headers, data=data)
                 await self.channel.send("%s has joined the team!" % user.name)

@@ -17,7 +17,11 @@ class CreateTeam:
         if get(self.author.roles, name='Organizer') is None:
             await self.channel.send("You have no permissions to create a new team. Contact an organizer")
             return
-        if get_user_info(self.user.id, 'team_name') == "":
+
+        user_info = get_user_info(self.user.id, 'team_name')
+        if user_info is None:
+            await self.channel.send("User not found in database")
+        elif user_info == "":
             data = {
                 "team_name": self.team_name
             }

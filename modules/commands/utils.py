@@ -65,9 +65,11 @@ async def get_all_teams(guild):
 
 def get_user_info(userid, param):
     response = requests.get("%s%s/" % (API_URL, str(userid)), headers=headers)
+    if 'detail' in response.json():
+        return None
     if param == 'team_name':
         return response.json()['team_name']
-    elif param == 'type':
+    if param == 'type':
         return response.json()['type']
-    elif param == 'all':
+    if param == 'all':
         return response.json()
