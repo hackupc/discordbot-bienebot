@@ -1,7 +1,6 @@
-import requests
 from discord.utils import get
-from get_enviroment import API_URL, headers
 from modules.commands.utils import get_bits_server
+from modules.services.api import Api
 
 
 class User:
@@ -9,17 +8,18 @@ class User:
     def __init__(self, member, client):
         self.guild = get_bits_server(client)
         self.user = member
+        self.api = Api()
 
     # Check in user + add roles
     async def save(self):
-        data = {'checked_in': True}
-        response = requests.put("%s%s/" % (API_URL, str(self.user.id)), headers=headers, data=data)
-        if 'detail' in response.json():
-            print('User %s not found in database' % self.user.name)
-        else:
-            type_role = get(self.guild.roles, name=response.json()['type'])
-            team_role = get(self.guild.roles, name=response.json()['team_name'])
+        try:
+            response = self.api.check_in(self.user.id)
+            type_role = get(self.guild.roles, name=response['type'])
+            team_role = get(self.guild.roles, name=response['team_name'])
             if type_role is not None:
                 await self.user.add_roles(type_role)
             if team_role is not None:
                 await self.user.add_roles(team_role)
+
+        except (self.api.USER_NOT_FOUND, self.api.BAD_REQUEST, self.api.SERVER_ERROR):
+            await self.user.send("Sync error. Contact an organizer")

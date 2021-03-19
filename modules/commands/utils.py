@@ -1,7 +1,6 @@
 import discord
 from discord.utils import get
-from get_enviroment import SERVER_NAME, API_URL, headers
-import requests
+from get_enviroment import SERVER_NAME
 
 
 def get_bits_server(client):
@@ -53,23 +52,3 @@ async def get_category(guild):
             return category
         else:
             return last
-
-
-async def get_all_teams(guild):
-    response = requests.get(API_URL, headers=headers)
-    all_teams = [e.team_name for e in response if not ""]
-    unique_teams = list(set(all_teams))
-    for team in unique_teams:
-        await create_channel_rol(guild, team)
-
-
-def get_user_info(userid, param):
-    response = requests.get("%s%s/" % (API_URL, str(userid)), headers=headers)
-    if 'detail' in response.json():
-        return None
-    if param == 'team_name':
-        return response.json()['team_name']
-    if param == 'type':
-        return response.json()['type']
-    if param == 'all':
-        return response.json()

@@ -1,5 +1,5 @@
 from discord.utils import get
-from modules.commands.utils import get_user_info
+from modules.services.api import Api
 import json
 
 
@@ -9,13 +9,15 @@ class GetUserInfo:
         self.channel = channel
         self.author = author
         self.user = user
+        self.api = Api()
 
     async def apply(self):
         if get(self.author.roles, name='Organizer') is None:
             await self.channel.send("You have no permissions to see the required information")
             return
-        info = get_user_info(self.user.id, 'all')
-        if info is None:
-            await self.author.send("User %s not found in the database" % self.user.name)
-        else:
+        try:
+            info = self.api.get_user_info(self.user.id, 'all')
             await self.author.send(json.dumps(info, indent=1))
+
+        except (self.api.USER_NOT_FOUND, self.api.BAD_REQUEST, self.api.SERVER_ERROR) as e:
+            await self.channel.send(e.message)
