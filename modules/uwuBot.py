@@ -5,6 +5,7 @@ from get_enviroment import TOKEN, COMMAND_PREFIX
 from modules.commands.biene import Biene
 from modules.commands.cat import Cat
 from modules.commands.clear import Clear
+from modules.commands.createAllTeams import CreateAllTeams
 from modules.commands.dog import Dog
 from modules.commands.help import Help
 from modules.commands.joke import Joke
@@ -86,6 +87,8 @@ class UwuBot:
                 elif command == 'addsticker':
                     await AddSticker(channel=channel, author=author, message=message_text[2],
                                      user=message.mentions[0]).apply()
+                elif command == 'createallteams':
+                    await CreateAllTeams(channel=channel, author=author, client=self.client).apply()
 
     def start(self):
         print("Starting modules!")

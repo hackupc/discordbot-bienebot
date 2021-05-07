@@ -1,3 +1,5 @@
+from time import sleep
+
 from discord.utils import get
 from modules.commands.utils import get_bits_server, create_channel_rol
 from modules.services.api import Api
@@ -17,11 +19,12 @@ class CreateAllTeams:
             return
         try:
             all_users = self.api.get_all_users()
-            all_teams = [e.team_name for e in all_users if not ""]
+            all_teams = [e['team_name'] for e in all_users if not ""]
             unique_teams = list(set(all_teams))
             for team in unique_teams:
                 await create_channel_rol(self.guild, team)
                 await self.channel.send("Team %s created!" % team)
+                sleep(1)
 
         except (self.api.USER_NOT_FOUND, self.api.BAD_REQUEST, self.api.SERVER_ERROR) as e:
             await self.channel.send(e.message)
