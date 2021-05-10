@@ -19,7 +19,7 @@ class CreateAllTeams:
             return
         try:
             all_users = self.api.get_all_users()
-            all_teams = [e['team_name'] for e in all_users if not ""]
+            all_teams = [e['team_name'].lower() for e in all_users if not ""]
             unique_teams = list(set(all_teams))
             for team in unique_teams:
                 await create_channel_rol(self.guild, team)

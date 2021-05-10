@@ -14,7 +14,7 @@ class Api:
         response = requests.get("%s%s%s/" % (self.api_url, "/discord/api/", str(userid)), headers=self.headers)
         response_json = self.check_errors(response)
         if param == 'team_name':
-            return response_json['team_name']
+            return response_json['team_name'].lower()
         if param == 'type':
             return response_json['type']
         if param == 'all':
