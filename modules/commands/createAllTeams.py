@@ -14,16 +14,19 @@ class CreateAllTeams:
         self.api = Api()
 
     async def apply(self):
-        if get(self.author.roles, name='Organizer') is None:
+        if not self.author.top_role.permissions.administrator:
             await self.channel.send("You have no permissions to execute this command")
             return
         try:
             all_users = self.api.get_all_users()
-            all_teams = [e['team_name'].lower() for e in all_users if not ""]
+            all_teams = [e['team_name'].lower() for e in all_users if e['team_name'].lower() != ""]
             unique_teams = list(set(all_teams))
             for team in unique_teams:
-                await create_channel_rol(self.guild, team)
-                await self.channel.send("Team %s created!" % team)
+                if get(self.guild.roles, name=team) is not None:
+                    await self.channel.send("Team %s was already created!" % team)
+                else:
+                    await create_channel_rol(self.guild, team)
+                    await self.channel.send("Team %s created!" % team)
                 sleep(1)
 
         except (self.api.USER_NOT_FOUND, self.api.BAD_REQUEST, self.api.SERVER_ERROR) as e:

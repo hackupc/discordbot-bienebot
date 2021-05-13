@@ -26,4 +26,4 @@ class Biene(BaseCommand):
                 file = File(path + self.message, filename="Biene.png")
                 await self.channel.send('Biene!', file=file)
             else:
-                await self.channel.send('Not found! Try again bitch')
+                await self.channel.send('Not found! Try again')

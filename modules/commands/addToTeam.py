@@ -13,9 +13,14 @@ class AddToTeam:
 
     async def apply(self):
         role = get(self.author.roles, name=self.team_name)
-        if role is None:
+        if role is None and not self.author.top_role.permissions.administrator:
             await self.channel.send("You are not in this team")
             return
+        elif self.author.top_role.permissions.administrator:
+            role = get(self.channel.guild.roles, name=self.team_name)
+            if role is None:
+                await self.channel.send("This team does not exists")
+                return
         for user in self.users:
             try:
                 user_info = self.api.get_user_info(user.id, 'team_name')
@@ -23,7 +28,7 @@ class AddToTeam:
                     self.api.add_member_to_team(user.id, self.team_name)
                     await user.add_roles(role)
                     await self.channel.send("%s has joined the team!" % user.name)
-                    await self.user.send("You have joined the team %s!" % self.team_name)
+                    await user.send("You have joined the team %s!" % self.team_name)
                 else:
                     await self.channel.send("The user %s has a team already" % user.name)
 

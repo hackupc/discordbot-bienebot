@@ -23,3 +23,19 @@ class User:
 
         except (self.api.USER_NOT_FOUND, self.api.BAD_REQUEST, self.api.SERVER_ERROR):
             await self.user.send("Sync error. Contact an organizer")
+
+    async def apply(self, channel, user):
+        if get(user.roles, name='Organizer') is None:
+            await channel.send("You have no permissions. Contact an organizer")
+            return
+        try:
+            response = self.api.check_in(self.user.id)
+            type_role = get(self.guild.roles, name=response['type'])
+            team_role = get(self.guild.roles, name=response['team_name'])
+            if type_role is not None:
+                await self.user.add_roles(type_role)
+            if team_role is not None:
+                await self.user.add_roles(team_role)
+
+        except (self.api.USER_NOT_FOUND, self.api.BAD_REQUEST, self.api.SERVER_ERROR):
+            await channel.send("Sync error. Contact an organizer")

@@ -2,10 +2,12 @@ import discord
 from discord.ext import commands
 
 from get_enviroment import TOKEN, COMMAND_PREFIX
+from modules.commands.announce import Announce
 from modules.commands.biene import Biene
 from modules.commands.cat import Cat
 from modules.commands.clear import Clear
 from modules.commands.createAllTeams import CreateAllTeams
+from modules.commands.deletehackerchannels import DeleteHackerChannels
 from modules.commands.dog import Dog
 from modules.commands.help import Help
 from modules.commands.joke import Joke
@@ -89,6 +91,13 @@ class UwuBot:
                                      user=message.mentions[0]).apply()
                 elif command == 'createallteams':
                     await CreateAllTeams(channel=channel, author=author, client=self.client).apply()
+                elif command == 'announce':
+                    await Announce(channel=channel, author=author, channels=message.channel_mentions,
+                                   message=message.content.lower(), attachments=message.attachments).apply()
+                elif command == 'loaduser':
+                    await User(member=message.mentions[0], client=self.client).apply(channel, author)
+                elif command == 'deletehackerchannels':
+                    await DeleteHackerChannels(author=author, channel=channel).apply()
 
     def start(self):
         print("Starting modules!")
