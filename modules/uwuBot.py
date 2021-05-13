@@ -33,8 +33,9 @@ class UwuBot:
 
         @self.client.event
         async def on_ready():
-            await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,
-                                                                        name="Bienes"))
+            await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.streaming,
+                                                                        name="HackUPC 2021",
+                                                                        url="https://www.twitch.tv/hackersupc"))
 
         @self.client.event
         async def on_member_join(member):
