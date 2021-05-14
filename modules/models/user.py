@@ -15,7 +15,7 @@ class User:
         try:
             response = self.api.check_in(self.user.id)
             type_role = get(self.guild.roles, name=response['type'])
-            team_role = get(self.guild.roles, name=response['team_name'])
+            team_role = get(self.guild.roles, name=response['team_name'].lower())
             if type_role is not None:
                 await self.user.add_roles(type_role)
             if team_role is not None:
@@ -31,7 +31,7 @@ class User:
         try:
             response = self.api.check_in(self.user.id)
             type_role = get(self.guild.roles, name=response['type'])
-            team_role = get(self.guild.roles, name=response['team_name'])
+            team_role = get(self.guild.roles, name=response['team_name'].lower())
             if type_role is not None:
                 await self.user.add_roles(type_role)
             if team_role is not None:
