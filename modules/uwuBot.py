@@ -54,7 +54,7 @@ class UwuBot:
                     await Parrot(channel=channel, author=author).apply()
                 elif command == 'cat':
                     await Cat(channel=channel, author=author).apply()
-                elif command == '8ball' or command == 'decide':
+                elif command in ['8ball', 'decide', 'guess']:
                     await Ball(channel=channel, author=author).apply()
                 elif command == 'dog':
                     await Dog(channel=channel, author=author).apply()
