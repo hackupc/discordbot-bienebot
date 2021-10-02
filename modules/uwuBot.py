@@ -9,6 +9,7 @@ from modules.commands.clear import Clear
 from modules.commands.createAllTeams import CreateAllTeams
 from modules.commands.deletehackerchannels import DeleteHackerChannels
 from modules.commands.dog import Dog
+from modules.commands.ball import Ball
 from modules.commands.help import Help
 from modules.commands.joke import Joke
 from modules.commands.memes import Memes
@@ -53,6 +54,8 @@ class UwuBot:
                     await Parrot(channel=channel, author=author).apply()
                 elif command == 'cat':
                     await Cat(channel=channel, author=author).apply()
+                elif command in ['8ball', 'decide', 'guess']:
+                    await Ball(channel=channel, author=author).apply()
                 elif command == 'dog':
                     await Dog(channel=channel, author=author).apply()
                 elif command == 'joke':

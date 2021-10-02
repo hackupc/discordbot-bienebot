@@ -23,7 +23,7 @@ class Announce:
         if start == -1 or end == -1:
             await self.channel.send('Error: "" not found')
             return
-        message_to_send = self.message[start+1:end]
+        message_to_send = self.message[start + 1:end]
         file = None
         if self.attachment is not None:
             file = await self.attachment.to_file()
