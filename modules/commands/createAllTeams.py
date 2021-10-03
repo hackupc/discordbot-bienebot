@@ -14,6 +14,7 @@ class CreateAllTeams:
         self.api = Api()
 
     async def apply(self):
+        # Check if has Admin permission on Top Role
         if not self.author.top_role.permissions.administrator:
             await self.channel.send("You have no permissions to execute this command")
             return
@@ -22,9 +23,11 @@ class CreateAllTeams:
             all_teams = [e['team_name'].lower() for e in all_users if e['team_name'].lower() != ""]
             unique_teams = list(set(all_teams))
             for team in unique_teams:
+                # Check if role does exist on Discord Server.
                 if get(self.guild.roles, name=team) is not None:
                     await self.channel.send("Team %s was already created!" % team)
                 else:
+                    # create role
                     await create_channel_rol(self.guild, team)
                     await self.channel.send("Team %s created!" % team)
                 sleep(1)

@@ -4,6 +4,7 @@ from discord import Embed
 
 from modules.commands.base import BaseCommand
 from modules.database.memes import MemesList
+from get_enviroment import COMMAND_PREFIX
 
 
 class Memes(BaseCommand):
@@ -32,7 +33,7 @@ class Memes(BaseCommand):
     async def help(self):
         list = MemesList().get_info_all()
         list_message = []
-        message = "**USE: biene meme [meme_code] help**\n"
+        message = "**USE: " + COMMAND_PREFIX + " meme [meme_code] help**\n"
         for item in list:
             message += "**%s**: %s\n" % (item['name'], item['key'])
             if len(message) > 1900:
@@ -64,6 +65,6 @@ class Memes(BaseCommand):
             format += "text%d|" % i
         format = format[:-1]
         url_format = format.replace('|', '/')
-        embed.description = '**Use**: biene meme %s %s' % (meme['key'], format)
+        embed.description = '**Use**: ' + COMMAND_PREFIX + ' meme %s %s' % (meme['key'], format)
         embed.set_image(url='%s/%s.png?width=500' % (meme['url'], url_format))
         await self.channel.send(embed=embed)
