@@ -1,7 +1,5 @@
 import random
 
-from requests.api import options
-
 from discord import Embed
 
 from modules.commands.base import BaseCommand
