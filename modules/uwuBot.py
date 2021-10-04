@@ -56,9 +56,9 @@ class UwuBot:
                     await Cat(channel=channel, author=author).apply()
                 elif command in ['8ball', 'decide', 'guess']:
                     if len(message_text) > 2:
-                        await Ball(channel=channel, author=author, message=message_text[2:], option=0).apply()
+                        await Ball(channel=channel, author=author, message=message_text[2:], option=1).apply()
                     else:
-                        await Ball(channel=channel, author=author, option=1).apply()
+                        await Ball(channel=channel, author=author, message="", option=0).apply()
                 elif command == 'dog':
                     await Dog(channel=channel, author=author).apply()
                 elif command == 'joke':

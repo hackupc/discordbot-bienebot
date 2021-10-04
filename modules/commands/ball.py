@@ -1,6 +1,6 @@
 import random
 
-from discord import Embed
+from discord import Embed, Color
 
 from modules.commands.base import BaseCommand
 
@@ -10,8 +10,11 @@ from modules.commands.base import BaseCommand
 
 
 class Ball(BaseCommand):
-    def __init__(self, channel, message, option):
+    def __init__(self, channel, author, message, option):
         self.option = option
+        self.author = author
+        self.message = message
+        self.channel = channel
         self.question = message
 
     async def apply(self):
@@ -27,14 +30,21 @@ class Ball(BaseCommand):
             ["I'M NOT SURE", 0x0559a3]
         ]
         # decide which
-        ans = random.randint(0, len(answers))
-        answer = str(answers[ans][0])
-        embcolor = str(answers[ans][1])
+        ans = random.choice(answers)
+        answer = str(ans[0])
+        embcolor = str(ans[1])
 
         if (self.option == 0):
             embtitle = "Let me guess... **" + answer + "**"
         else:
-            embtitle = self.question, "?.. **" + answer + "**"
-        embed = Embed(title=embtitle, description="The anwser of your question is " + answer, color=embcolor)
+            f = ""
+            if (len(self.question) > 1):
+                for w in self.question:
+                    f += w + " "
+            else:
+                f = str(self.question[0])
+            embtitle = str(f + " ?.. **" + answer + "**")
+        c = Color(int(embcolor))
+        embed = Embed(title=embtitle, description="The anwser of your question is " + answer, color=c)
         embed.set_footer(text="BieneBot")
         await self.channel.send(embed=embed)
