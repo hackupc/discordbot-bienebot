@@ -47,7 +47,6 @@ class UwuBot:
             message_text = message.content.lower().split(' ')
             if len(message_text) > 1 and message_text[0].startswith(COMMAND_PREFIX):
                 command = message_text[1]
-                meme_text = ' '.join(message_text[2:])
                 channel = message.channel
                 author = message.author
                 if command == 'parrot':
@@ -55,7 +54,10 @@ class UwuBot:
                 elif command == 'cat':
                     await Cat(channel=channel, author=author).apply()
                 elif command in ['8ball', 'decide', 'guess']:
-                    await Ball(channel=channel, author=author).apply()
+                    if len(message_text) > 2:
+                        await Ball(channel=channel, author=author, message=message_text[2:], option=1).apply()
+                    else:
+                        await Ball(channel=channel, author=author, message="", option=0).apply()
                 elif command == 'dog':
                     await Dog(channel=channel, author=author).apply()
                 elif command == 'joke':
@@ -74,7 +76,11 @@ class UwuBot:
                 elif command == 'clearyesimsure':
                     await Clear(channel=channel, author=author).apply()
                 elif command == 'meme':
-                    await Memes(channel=channel, author=author, message=meme_text).apply()
+                    if (len(message_text) > 2):
+                        meme_text = ' '.join(message_text[2:])
+                        await Memes(channel=channel, author=author, message=meme_text).apply()
+                    else:
+                        await channel.send("[ERROR] No meme selected")
                 elif command == 'help':
                     await Help(channel=channel, author=author).apply()
                 elif command == 'createteam':

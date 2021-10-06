@@ -4,6 +4,7 @@ from discord import Embed
 
 from modules.commands.base import BaseCommand
 from modules.database.memes import MemesList
+from get_enviroment import COMMAND_PREFIX
 
 
 class Memes(BaseCommand):
@@ -12,11 +13,14 @@ class Memes(BaseCommand):
         super().__init__(channel, author)
         list = message.split(' ')
         self.name = list[0]
+        # Check if substring is help example: 'prefix meme help'
         self.is_help = list[0] == 'help'
-        if not self.is_help:
+        # check if is help meme ex: 'prefix meme memename help'
+        if (len(list) > 1):
             self.is_meme_help = list[1] == 'help'
         else:
             self.is_meme_help = False
+
         joinable = '_'
         text = joinable.join(list[1:])
         self.message = text.split('|')
@@ -32,7 +36,7 @@ class Memes(BaseCommand):
     async def help(self):
         list = MemesList().get_info_all()
         list_message = []
-        message = "**USE: biene meme [meme_code] help**\n"
+        message = "**USE: " + COMMAND_PREFIX + " meme [meme_code] help**\n"
         for item in list:
             message += "**%s**: %s\n" % (item['name'], item['key'])
             if len(message) > 1900:
@@ -49,11 +53,15 @@ class Memes(BaseCommand):
             await sleep(1)
 
     async def meme(self):
-        embed = Embed()
-        url = MemesList().get_url_meme(self.name)
-        url_format = '/'.join(self.message)
-        embed.set_image(url="%s/%s.png?width=500" % (url, url_format))
-        await self.channel.send(embed=embed)
+        # check if meme exists
+        if(MemesList().get_url_meme(self.name) == ""):
+            await self.channel.send("Meme not found")
+        else:
+            embed = Embed()
+            url = MemesList().get_url_meme(self.name)
+            url_format = '/'.join(self.message)
+            embed.set_image(url="%s/%s.png?width=500" % (url, url_format))
+            await self.channel.send(embed=embed)
 
     async def meme_help(self):
         embed = Embed()
@@ -64,6 +72,6 @@ class Memes(BaseCommand):
             format += "text%d|" % i
         format = format[:-1]
         url_format = format.replace('|', '/')
-        embed.description = '**Use**: biene meme %s %s' % (meme['key'], format)
+        embed.description = '**Use**: ' + COMMAND_PREFIX + ' meme %s %s' % (meme['key'], format)
         embed.set_image(url='%s/%s.png?width=500' % (meme['url'], url_format))
         await self.channel.send(embed=embed)
