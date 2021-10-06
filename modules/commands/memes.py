@@ -19,7 +19,7 @@ class Memes(BaseCommand):
         if (len(list) > 1):
             self.is_meme_help = list[1] == 'help'
         else:
-            self.is_meme_help = True
+            self.is_meme_help = False
 
         joinable = '_'
         text = joinable.join(list[1:])
