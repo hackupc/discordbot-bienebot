@@ -13,8 +13,14 @@ class Memes(BaseCommand):
         super().__init__(channel, author)
         list = message.split(' ')
         self.name = list[0]
-        # Check if substring is help
-        self.is_help = self.is_meme_help = list[0] == 'help'
+        # Check if substring is help example: 'prefix meme help'
+        self.is_help = list[0] == 'help'
+        # check if is help meme ex: 'prefix meme memename help'
+        if (len(list) > 1):
+            self.is_meme_help = list[1] == 'help'
+        else:
+            self.is_meme_help = True
+
         joinable = '_'
         text = joinable.join(list[1:])
         self.message = text.split('|')
@@ -53,8 +59,6 @@ class Memes(BaseCommand):
         else:
             embed = Embed()
             url = MemesList().get_url_meme(self.name)
-            if(self.message == "" or self.message == ['']):
-                self.message = ["TEST", "TEXT"]
             url_format = '/'.join(self.message)
             embed.set_image(url="%s/%s.png?width=500" % (url, url_format))
             await self.channel.send(embed=embed)
