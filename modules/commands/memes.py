@@ -55,9 +55,7 @@ class Memes(BaseCommand):
             url = MemesList().get_url_meme(self.name)
             if(self.message == "" or self.message == ['']):
                 self.message = ["TEST", "TEXT"]
-            print(self.message)
             url_format = '/'.join(self.message)
-            print("%s/%s.png?width=500" % (url, url_format))
             embed.set_image(url="%s/%s.png?width=500" % (url, url_format))
             await self.channel.send(embed=embed)
 
