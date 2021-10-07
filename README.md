@@ -32,10 +32,38 @@
 
 **biene jointeam [teamname] [mention all the users you want to add to the team]** -> Allows you to join
 
-# Setup
-
-
-
 ## Bot prefix
 
 Customizable (environment variable)
+
+# Setup
+
+1. Create a ``.env`` file by copying the ``.env.template`` file. You can do that on linux via :
+
+```sh
+cp .env.template .env
+```
+
+2. Install ``pip``, ``virtualenv``, and ``python3``.
+
+3. Install requirements by doing
+
+```sh
+pip install -r requirements.txt
+```
+
+4. Open the ``.env`` file and change your settings. 
+
+5. Finally, run the bot.
+
+```console
+python3 bot.py
+```
+
+## Developement Setup
+
+It is highly recommended to create a ``virtualenv`` called env (suggestion)
+
+Then activate it and installing all the requirements into the virtual environment. Remember to set python=python3 as a flag.
+
+
