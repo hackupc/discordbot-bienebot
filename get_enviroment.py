@@ -12,6 +12,7 @@ API_TOKEN = os.getenv('API_TOKEN')
 DOMAIN = os.getenv('DOMAIN')
 headers = {'Authorization': 'Token ' + API_TOKEN}
 ANNOUNCEMENTS_CHANNEL = os.getenv('ANNOUNCEMENTS_CHANNEL')
+WANTS_ORIGINAL_MEME_HELP = os.getenv('WANTS_ORIGINAL_MEME_HELP')
 
 with open('files/parrots.json', 'r') as fp:
     PARROTS = json.load(fp)
