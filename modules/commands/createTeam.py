@@ -1,6 +1,7 @@
 from discord.utils import get
 from modules.commands.utils import create_channel_rol, get_bits_server
 from modules.services.api import Api
+from get_enviroment import DISCORD_ORGANIZER_ROLE_NAME
 
 
 class CreateTeam:
@@ -14,7 +15,7 @@ class CreateTeam:
         self.api = Api()
 
     async def apply(self):
-        if get(self.author.roles, name='Organizer') is None:
+        if get(self.author.roles, name=DISCORD_ORGANIZER_ROLE_NAME) is None:
             await self.channel.send("You have no permissions to create a new team. Contact an organizer")
             return
         try:

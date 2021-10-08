@@ -1,6 +1,7 @@
 from discord.utils import get
 from modules.commands.utils import get_bits_server
 from modules.services.api import Api
+from get_enviroment import DISCORD_ORGANIZER_ROLE_NAME
 
 
 class User:
@@ -25,7 +26,7 @@ class User:
             await self.user.send("Sync error. Contact an organizer")
 
     async def apply(self, channel, user):
-        if get(user.roles, name='Organizer') is None:
+        if get(user.roles, name=DISCORD_ORGANIZER_ROLE_NAME) is None:
             await channel.send("You have no permissions. Contact an organizer")
             return
         try:

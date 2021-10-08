@@ -74,4 +74,4 @@ If you need help understanding something of this repo you can ask to:
 
 - Arnau: Slack `@arnau`, [Github](https://github.com/Casassarnau)
 - Raquel: Slack `@rachel baker`, [Github](https://github.com/raquelpanapalen)
-- Jaume: Slack `@jaume`, [Github](https://encryptex.me/)
+- Jaume: Slack `@jaume`, [Github](https://github.com/EncryptEx)

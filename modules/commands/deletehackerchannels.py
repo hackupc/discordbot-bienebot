@@ -1,4 +1,5 @@
 from discord.utils import get
+from get_enviroment import DISCORD_ORGANIZER_ROLE_NAME
 
 
 class DeleteHackerChannels:
@@ -7,7 +8,7 @@ class DeleteHackerChannels:
         self.channel = channel
 
     async def apply(self):
-        if get(self.author.roles, name='Organizer') is None:
+        if get(self.author.roles, name=DISCORD_ORGANIZER_ROLE_NAME) is None:
             await self.channel.send("You have no permissions. Contact an organizer")
             return
         if not self.author.top_role.permissions.administrator:
