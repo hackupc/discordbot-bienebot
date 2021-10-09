@@ -9,6 +9,7 @@ from modules.commands.clear import Clear
 from modules.commands.createAllTeams import CreateAllTeams
 from modules.commands.deletehackerchannels import DeleteHackerChannels
 from modules.commands.dog import Dog
+from modules.commands.choose import Choose
 from modules.commands.ball import Ball
 from modules.commands.help import Help
 from modules.commands.joke import Joke
@@ -53,7 +54,7 @@ class UwuBot:
                     await Parrot(channel=channel, author=author).apply()
                 elif command == 'cat':
                     await Cat(channel=channel, author=author).apply()
-                elif command in ['8ball', 'decide', 'guess']:
+                elif command in ['8ball', 'yesno', 'guess']:
                     if len(message_text) > 2:
                         await Ball(channel=channel, author=author, message=message_text[2:], option=1).apply()
                     else:
@@ -75,6 +76,11 @@ class UwuBot:
                     await channel.send('pong')
                 elif command == 'clearyesimsure':
                     await Clear(channel=channel, author=author).apply()
+                elif command in ['choose', 'rchoose', 'choice', 'rchoice', 'randomselect', 'rselect', 'decide']:
+                    if (len(message_text) > 2):
+                        await Choose(channel=channel, author=author, message=' '.join(message_text[2:])).apply()
+                    else:
+                        await channel.send("[ERROR] No options given.")
                 elif command == 'meme':
                     if (len(message_text) > 2):
                         meme_text = ' '.join(message_text[2:])

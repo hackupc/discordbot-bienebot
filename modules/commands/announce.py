@@ -1,4 +1,5 @@
 from discord.utils import get
+from get_enviroment import DISCORD_ORGANIZER_ROLE_NAME
 
 
 class Announce:
@@ -12,7 +13,7 @@ class Announce:
             self.attachment = attachments[0]
 
     async def apply(self):
-        if get(self.author.roles, name='Organizer') is None:
+        if get(self.author.roles, name=DISCORD_ORGANIZER_ROLE_NAME) is None:
             await self.channel.send("You have no permissions. Contact an organizer")
             return
         if len(self.channels) == 0:

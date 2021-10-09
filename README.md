@@ -1,3 +1,5 @@
+# <!--<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwiki.miranda-ng.org%2Fimages%2F4%2F4d%2FDiscord-Logo-Black.png&f=1&nofb=1" width="25">--> BieneBot <!--<img src="https://avatars.githubusercontent.com/u/15365910?s=200&v=4" width="25">-->
+
 ![Travis](https://img.shields.io/travis/com/hackupc/discordbot-bienebot)
 ![Library](https://img.shields.io/badge/Library-Discord.py-blue)
 ![Size](https://img.shields.io/github/languages/code-size/hackupc/discordbot-bienebot)
@@ -32,10 +34,44 @@
 
 **biene jointeam [teamname] [mention all the users you want to add to the team]** -> Allows you to join
 
-# Setup
-
-
-
 ## Bot prefix
 
 Customizable (environment variable)
+
+# Setup
+
+1. Create a ``.env`` file by copying the ``.env.template`` file. You can do that on linux via :
+
+```sh
+cp .env.template .env
+```
+
+2. Install ``pip``, ``virtualenv``, and ``python3``.
+
+3. Install requirements by doing
+
+```sh
+pip install -r requirements.txt
+```
+
+4. Open the ``.env`` file and change your settings. 
+
+5. Finally, run the bot.
+
+```console
+python3 bot.py
+```
+
+## Development Setup
+
+It is highly recommended to create a ``virtualenv`` called env (suggestion)
+
+Then activate it and installing all the requirements into the virtual environment. Remember to set python=python3 as a flag.
+
+## Support
+
+If you need help understanding something of this repo you can ask to:
+
+- Arnau: Slack `@arnau`, [Github](https://github.com/Casassarnau)
+- Raquel: Slack `@rachel baker`, [Github](https://github.com/raquelpanapalen)
+- Jaume: Slack `@jaume`, [Github](https://github.com/EncryptEx)

@@ -1,7 +1,7 @@
 from discord import Embed
 from discord.utils import get
 from modules.commands.base import BaseCommand
-from get_enviroment import COMMAND_PREFIX
+from get_enviroment import COMMAND_PREFIX, DISCORD_ORGANIZER_ROLE_NAME
 
 
 class Help(BaseCommand):
@@ -22,7 +22,7 @@ class Help(BaseCommand):
         **""" + COMMAND_PREFIX + """ jointeam [teamname] [mention all the users you want to add to the team]**
         """
 
-        if get(self.author.roles, name='Organizer') is None:
+        if get(self.author.roles, name=DISCORD_ORGANIZER_ROLE_NAME) is None:
             pass
         else:
             description += "**" + COMMAND_PREFIX + """ createteam [teamname] [mention 1 member of new team]** -> Creates new team
