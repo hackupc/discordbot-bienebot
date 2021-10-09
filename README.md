@@ -4,6 +4,8 @@
 ![Library](https://img.shields.io/badge/Library-Discord.py-blue)
 ![Size](https://img.shields.io/github/languages/code-size/hackupc/discordbot-bienebot)
 ![Lines](https://img.shields.io/tokei/lines/github/hackupc/discordbot-bienebot)
+![Regularity](https://img.shields.io/github/commit-activity/m/hackupc/discordbot-bienebot)
+![LastCommit](https://img.shields.io/github/last-commit/hackupc/discordbot-bienebot)
 
 ![Image](https://hackupc.com/ogimage.png)
 
