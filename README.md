@@ -1,9 +1,11 @@
 # <!--<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwiki.miranda-ng.org%2Fimages%2F4%2F4d%2FDiscord-Logo-Black.png&f=1&nofb=1" width="25">--> BieneBot <!--<img src="https://avatars.githubusercontent.com/u/15365910?s=200&v=4" width="25">-->
 
-![Travis](https://img.shields.io/travis/com/hackupc/discordbot-bienebot)
+![CircleCi](https://img.shields.io/circleci/build/github/hackupc/discordbot-bienebot)
 ![Library](https://img.shields.io/badge/Library-Discord.py-blue)
 ![Size](https://img.shields.io/github/languages/code-size/hackupc/discordbot-bienebot)
 ![Lines](https://img.shields.io/tokei/lines/github/hackupc/discordbot-bienebot)
+![Regularity](https://img.shields.io/github/commit-activity/m/hackupc/discordbot-bienebot)
+![LastCommit](https://img.shields.io/github/last-commit/hackupc/discordbot-bienebot)
 
 ![Image](https://hackupc.com/ogimage.png)
 
